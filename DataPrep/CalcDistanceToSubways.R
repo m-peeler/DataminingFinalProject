@@ -42,7 +42,7 @@ calcAirportDist <- function(listing_link) {
     cur <-  listings[i,]
     lat1 <- cur$latitude
     lon1 <- cur$longitude
-    for (j in 1:nrow(airports_nyc)){
+    for (j in 1:nrow(airports)){
       lat2 <- airports[j,]$latitude_deg
       lon2 <- airports[j,]$longitude_deg
       d <- distance(lat1, lon1, lat2, lon2)
