@@ -1,5 +1,5 @@
 distance <- function(lat1, lon1, lat2, lon2) {
-  sqrd <- ((lat2 - lat1) * 69)^2 + ((lon2 - lon1) * 54.6)^2
+  sqrd <- ((lat2 - lat1) * 69)^2 + ((lon2 - lon1) * 53)^2
   return (sqrd^0.5)
 }
 
@@ -66,6 +66,9 @@ addCityCenter <- function(listings_file, centerLoc) {
     cur <- listings[i,]
     cur$dist_from_city_center <- distance(cur$latitude, cur$longitude, centerLoc[1], centerLoc[2])
     listings[i,] <- cur
+    if (i %% 1000 == 0) {
+      print(i)
+    }
   }
   write.csv(listings, listings_file)
 }
@@ -84,27 +87,13 @@ calcAllDists("~/GitHub/DataminingFinalProject/AirBnb_listings/chicago_listings -
 dc_center = c(38.9072, -77.0369)
 calcAllDists("~/GitHub/DataminingFinalProject/AirBnb_listings/dc_listings - full.csv",
              "~/GitHub/DataminingFinalProject/Subway_Locations/Metro_Stations_Regional.csv",
-             chic_center)
+             dc_center)
 
 nyc_center = c(40.7580, -73.9855)
 calcAirportDist("~/GitHub/DataminingFinalProject/AirBnb_listings/nyc_listings - full.csv")
 addCityCenter("~/GitHub/DataminingFinalProject/AirBnb_listings/nyc_listings - full.csv",
               nyc_center)
 
-calcSubwayDist("~/GitHub/DataminingFinalProject/AirBnb_Listings/nyc_listings.csv",
-               "~/GitHub/DataminingFinalProject/Subway_Locations/nyc-subway-stations-clean.csv")
-
-calcSubwayDist("~/GitHub/DataminingFinalProject/AirBnb_Listings/dc_listings.csv",
-               "~/GitHub/DataminingFinalProject/Subway_Locations/Metro_Stations_Regional.csv")
-
-calcSubwayDist("~/GitHub/DataminingFinalProject/AirBnb_Listings/chicago_listings.csv",
-               "~/GitHub/DataminingFinalProject/Subway_Locations/chicago_metro_station_coordinates.csv")
-
-calcAirportDist("~/GitHub/DataminingFinalProject/AirBnb_Listings/nyc_listings.csv")
-
-calcAirportDist("~/GitHub/DataminingFinalProject/AirBnb_Listings/dc_listings.csv")
-
-calcAirportDist("~/GitHub/DataminingFinalProject/AirBnb_Listings/chicago_listings.csv")
 
 
 
